@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- float https://getbootstrap.com/docs/5.1/utilities/float/ -->
+    <div>
+        <div class="box bg-primary float-start"></div>
+        <div class="box bg-warning float-end"></div>
+        <div class="box bg-info float-none"></div>
+    </div>
+
+    <!-- position https://getbootstrap.com/docs/5.1/utilities/position/ -->
+
+    <div style="height: 400px;" class="position-relative border">
+        <div class="box bg-danger position-absolute top-0 start-0 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-0 start-50 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-0 start-100 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-50 start-0 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-50 start-50 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-50 start-100 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-100 start-0 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-100 start-50 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-100 start-100 translate-middle"></div>
+    </div>
+
+    <div style="height: 400px;" class="position-relative border">
+        <div class="box bg-danger position-absolute top-0 start-0"></div>
+        <div class="box bg-danger position-absolute top-0 start-50 translate-middle-x"></div>
+        <div class="box bg-danger position-absolute top-0 end-0"></div>
+        <div class="box bg-danger position-absolute top-50 start-0 translate-middle-y"></div>
+        <div class="box bg-danger position-absolute top-50 start-50 translate-middle"></div>
+        <div class="box bg-danger position-absolute top-50 end-0 translate-middle-y"></div>
+        <div class="box bg-danger position-absolute bottom-0 start-0"></div>
+        <div class="box bg-danger position-absolute bottom-0 start-50 translate-middle-x"></div>
+        <div class="box bg-danger position-absolute bottom-0 end-0"></div>
+    </div>
+
+    <!-- flex https://getbootstrap.com/docs/5.1/utilities/flex/ -->
+    <!-- flex 的使用基本上就是把所有flex的属性变成了class类 -->
+    <div class="d-flex justify-content-between align-items-center flex-row border w-100" style="height: 400px">
+        <div class="box bg-primary"></div>
+        <div class="box bg-warning align-self-end"></div>
+        <div class="box bg-info"></div>
+    </div>
+</body>
+
+</html>

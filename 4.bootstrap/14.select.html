@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- 参考：https://getbootstrap.com/docs/5.0/forms/select/ -->
+    <!-- 基本用法 -->
+    <form>
+        <div><label>城市：
+                <select class="form-select">
+                    <option value="cq">重庆</option>
+                    <option value="cd" selected>成都</option>
+                    <option value="sh">上海</option>
+                </select>
+            </label></div>
+        <div><label>城市：
+                <select class="form-select form-select-lg">
+                    <option value="cq">重庆</option>
+                    <option value="cd" selected>成都</option>
+                    <option value="sh">上海</option>
+                </select>
+            </label></div>
+        <div><label>城市：
+                <select class="form-select form-select-sm">
+                    <option value="cq">重庆</option>
+                    <option value="cd" selected>成都</option>
+                    <option value="sh">上海</option>
+                </select>
+            </label></div>
+        <div>
+            <label class="form-label">部门</label>
+            <!-- datalist 的写法和 select 一样
+                datalist 会依附一个 input
+                input 需要使用 list 属性 关联一个 id相同的 datalist
+             -->
+            <input list="department" class="form-control" />
+            <datalist id="department">
+                <option value="HR">人事部</option>
+                <option value="IT">IT部</option>
+                <option value="Money">财务部</option>
+            </datalist>
+        </div>
+    </form>
+</body>
+
+</html>

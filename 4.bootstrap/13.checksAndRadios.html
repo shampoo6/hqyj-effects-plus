@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- 参考：https://getbootstrap.com/docs/5.0/forms/checks-radios/ -->
+    <form>
+        <!-- 纵向排列 -->
+        <div>
+            <label class="form-label">爱好</label>
+            <div class="form-check">
+                <input id="playbasketball" name="hobby" type="checkbox" value="basketball" class="form-check-input" />
+                <label for="playbasketball" class="form-check-label">打篮球</label>
+            </div>
+            <div class="form-check">
+                <input id="playfootball" name="hobby" type="checkbox" value="football" class="form-check-input" />
+                <label for="playfootball" class="form-check-label">踢足球</label>
+            </div>
+        </div>
+        <div>
+            <label class="form-label">不确定按钮</label>
+            <input id="indeterminate" class="form-check-input" type="checkbox" />
+        </div>
+
+        <!-- 单选按钮 -->
+        <div>
+            <label class="form-label">性别</label>
+            <div class="form-check-inline">
+                <input id="female" name="sex" value="female" class="form-check-input" type="radio" checked />
+                <label for="female" class="form-check-label">女</label>
+            </div>
+            <div class="form-check-inline">
+                <input id="male" name="sex" value="male" class="form-check-input" type="radio" />
+                <label for="male" class="form-check-label">男</label>
+            </div>
+        </div>
+
+        <!-- 开关 -->
+        <div>
+            <label class="form-label">自动保存</label>
+            <div class="form-check form-switch">
+                <input id="switch" type="checkbox" class="form-check-input" checked />
+                <label for="switch" class="form-check-label">开启自动保存功能</label>
+            </div>
+        </div>
+
+        <!-- 横向排列 -->
+        <div>
+            <label class="form-label">爱好</label>
+            <div class="form-check form-check-inline">
+                <input id="playbasketball2" name="hobby" type="checkbox" value="basketball" class="form-check-input" />
+                <label for="playbasketball2" class="form-check-label">打篮球</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input id="playfootball2" name="hobby" type="checkbox" value="football" class="form-check-input" />
+                <label for="playfootball2" class="form-check-label">踢足球</label>
+            </div>
+        </div>
+
+        <!-- 类似按钮的checkbox或radio -->
+        <div>
+            <div class="form-check form-check-inline">
+                <input name="area" id="yzq" value="yzq" type="radio" class="btn-check" />
+                <label for="yzq" class="btn btn-outline-primary">渝中区</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input name="area" id="naq" value="yzq" type="radio" class="btn-check" />
+                <label for="naq" class="btn btn-outline-success">南岸区</label>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script>
+    // 不确定按钮的属性，无法通过html属性进行设置
+    // 只能通过js代码手动设置
+    let chk = document.querySelector('#indeterminate')
+    chk.indeterminate = true
+</script>
+
+</html>

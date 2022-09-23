@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/fullpage.min.css" />
+    <style>
+        html {
+            color: white;
+            text-align: center;
+        }
+
+        .nav {
+            width: 100%;
+            height: 100px;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <ul>
+            <li data-menuanchor="anchor1"><a href="#anchor1">section1</a></li>
+            <li data-menuanchor="anchor2"><a href="#anchor2/1">section2-2</a></li>
+            <li data-menuanchor="anchor3"><a href="#anchor3">section3</a></li>
+        </ul>
+    </div>
+
+    <!-- fullpage项目是由section和slide组成 -->
+    <div class="fp-container">
+        <!-- 使用class 来定义section和slide -->
+        <div class="section">section1</div>
+        <div class="section">
+            <!-- 在第二个section中添加slide滑块 -->
+            <div class="slide">slide1</div>
+            <div class="slide">
+                <img data-src="./img/img.png" />
+            </div>
+            <div class="slide">slide3</div>
+        </div>
+        <div class="section">section3</div>
+    </div>
+</body>
+<script src="./js/fullpage.min.js"></script>
+<script>
+    // 构造函数的第一个参数，是我们fullpage容器的选择器
+    new fullpage('.fp-container', {
+        // 配置项
+
+        // 设置锚点
+        // 可一个给 section 添加 data-anchor 属性来手动指定锚点名称
+        anchors: ['anchor1', 'anchor2', 'anchor3'],
+
+        // 菜单
+        // 该配置项并非创建菜单，而是给菜单元素预留一个屏幕高度
+        // menu: '.nav'
+
+        // 导航小圆点
+        navigation: true,
+        // 导航小圆点出现的位置，left right
+        navigationPosition: 'right',
+        // 在当行小圆点上，鼠标悬停时的提示框
+        navigationTooltips: ['section1', 'slides', 'section3'],
+        // 是否主动显示提示信息
+        showActiveTooltip: true,
+        // slide 上的小圆点
+        slidesNavigation: true,
+        // slide 上的小圆点的位置 top bottom
+        slidesNavPosition: 'bottom',
+
+        // 滚动动画时长 单位毫秒
+        scrollingSpeed: 2000,
+
+        // 显示 左右箭头
+        controlArrows: false,
+        // section的背景颜色
+        sectionsColor: ['#ccc', '#00f', '#f00'],
+
+
+
+        // 事件配置
+
+        // 当 离开一个 section 时触发onLeave事件
+        onLeave: (from, to, direction) => {
+            console.log('onLeave')
+            // console.log(from)
+            // console.log(to)
+            // console.log(direction)
+
+            // 返回false 将不允许屏幕离开当前section
+            // return false
+        },
+        // 当 加载一个section时（进入一个新的section时）触发
+        afterLoad: (from, to, direction) => {
+            console.log('afterLoad')
+            // console.log(from)
+            // console.log(to)
+            // console.log(direction)
+
+            // 返回false 将不允许屏幕离开当前section
+            // return false
+        },
+        // 当html文档构建完成，准备渲染时触发
+        // 可以理解成 fullpage 加载完成时 触发 类似于 window.onload
+        afterRender: () => {
+            console.log('afterRender')
+        },
+        // 重置窗口尺寸时触发
+        afterResize: function (width, height) {
+            console.log(width)
+            console.log(height)
+        },
+        // 当 slide 进入时触发
+        afterSlideLoad: function (section, origin, destination, direction) {
+            console.log('afterSlideLoad')
+            // console.log(section)
+            // console.log(origin)
+            // console.log(destination)
+            // console.log(direction)
+        },
+        // 当 离开slide时触发
+        onSlideLeave: function (section, origin, destination, direction) {
+            console.log('onSlideLeave')
+            // console.log(section)
+            // console.log(origin)
+            // console.log(destination)
+            // console.log(direction)
+        }
+    })
+</script>
+
+</html>

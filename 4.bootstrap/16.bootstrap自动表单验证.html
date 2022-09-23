@@ -1,0 +1,118 @@
+<!-- 
+    // 参考：https://getbootstrap.com/docs/5.0/forms/validation/
+    知识点
+    添加 valid-feedback invalid-feedback 验证报告
+    通过 was-validated 开启验证报告
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        #form {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 在form上 增加 novalidate 属性，将使浏览器停止表单验证 -->
+        <form id="form" onsubmit="return false" class="row p-3 mt-3 g-3 border rounded" novalidate>
+            <!-- 第一行 -->
+            <div class="col-4 form-item-firstname">
+                <label class="form-label">First name</label>
+                <!-- 在表单元素后加上 required 属性，表示 该表单项是必填项 -->
+                <!-- required 属性可以让浏览器自动检测该表单元素是否填写，这是浏览器的默认行为 -->
+                <input name="firstName" class="form-control" placeholder="please input first name" required
+                    minlength="2" maxlength="10" />
+                <!-- 自定义表单验证 -->
+
+                <!-- feedback元素，需要和input位兄弟节点关系 -->
+                <!-- valid-feedback 将在验证通过时显示 -->
+                <div class="valid-feedback">
+                    ok
+                </div>
+                <!-- invalid-feedback 将在验证失败时显示 -->
+                <div class="invalid-feedback">
+                    please input valid value
+                </div>
+            </div>
+            <div class="col-4">
+                <label class="form-label">Last name</label>
+                <input name="lastName" class="form-control" placeholder="please input last name" required />
+            </div>
+            <div class="col-4">
+                <label class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text">@</span>
+                    <input name="userName" class="form-control" placeholder="please input username" required />
+                </div>
+            </div>
+            <!-- 第二行 -->
+            <div class="col-6">
+                <label class="form-label">City</label>
+                <input name="city" class="form-control" placeholder="please input city" />
+            </div>
+            <div class="col-3">
+                <label class="form-label">State</label>
+                <select class="form-select">
+                    <option value="">Choose...</option>
+                    <option value="CQ">ChongQing</option>
+                    <option value="BJ">BeiJing</option>
+                    <option value="SH">ShangHai</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label class="form-label">Zip</label>
+                <input name="zip" class="form-control" placeholder="please input zip code" />
+            </div>
+            <!-- 第三行 -->
+            <div class="col-12">
+                <div class="form-check">
+                    <input name="protocol" type="checkbox" class="form-check-input" />
+                    <label class="form-check-label">Agree to terms and conditions</label>
+                </div>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Submit form" />
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    // 参考：https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation
+    // 参考：https://getbootstrap.com/docs/5.0/forms/validation/
+    // 约束验证：https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Constraint_validation
+
+    const btn = document.querySelector('#form input[type=submit]')
+    // 此处作为例子，只验证了 firstName、lastName 和 userName
+    const form = document.querySelector('form')
+    const firstName = document.querySelector('form input[name=firstName]')
+    const lastName = document.querySelector('form input[name=lastName]')
+    const userName = document.querySelector('form input[name=userName]')
+    btn.addEventListener('click', ev => {
+        ev.stopPropagation()
+        ev.preventDefault()
+
+        // 给form表单 添加class was-validated 进行验证，否则页面中不会显示验证的结果
+        // form.classList.add('was-validated')
+        if (!form.classList.contains('was-validated')) { // 若没有 was-validated 就添加
+            form.classList.add('was-validated')
+        }
+
+        if (firstName.validity.valid &&
+            lastName.validity.valid &&
+            userName.validity.valid) {
+            alert('表单验证成功')
+        }
+    })
+</script>
+
+</html>

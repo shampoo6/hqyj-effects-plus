@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            知识点
+            如何按比例设置元素的宽高
+            如何等比例缩放元素
+        */
+
+        /* 
+            如何按比例设置元素的宽高
+            原理是: 
+            一个父元素中的第一个子元素，其padding-top的百分比大小是参考的父元素的宽度
+            例如: padding-top: 25%，则子元素上侧内边距就是父元素宽度的25%
+            如此以来只要不设置父元素高度，则父元素的高度就是第一个子元素的高度，从而让父元素宽高成比例
+
+            具体操作步骤如下:
+        */
+
+        /* 1. 创建父元素 box 类 */
+        .box {
+            width: 100%;
+            position: relative;
+        }
+
+        /* 2. 让所有子元素应用以下样式 */
+        .box>* {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* 3. 创建一个比例尺类 此处为宽高比2:1的比例尺 */
+        .box-2x1::before {
+            content: '';
+            display: block;
+            padding-top: 50%
+        }
+
+        .box-16x9::before {
+            content: '';
+            display: block;
+            padding-top: 56.25%
+        }
+
+
+        /* 如何等比例缩放元素 */
+
+        /* 为了让 box 拥有一个固定的宽度，可以在 box 外 套一个壳 */
+        .container {
+            /* width: 300px; */
+            /* 为了等比例缩放 可以使用 rem 来控制这个外壳的宽度 */
+            width: 18.75rem;
+        }
+
+        .content {
+            background-color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 请在父元素上同时使用 box 和 box-2x1 -->
+    <div class="box box-2x1">
+        <!-- 需要固定宽高比的元素放在 box 里 -->
+        <div class="content">content</div>
+    </div>
+
+    <!-- 为了让 box 拥有一个固定的宽度，可以在 box 外 套一个壳 -->
+    <div class="container">
+        <div class="box box-16x9">
+            <div class="content">content</div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const html = document.querySelector('html')
+
+    function resize() {
+        const newFontSize = window.innerWidth / (800 / 16)
+        html.style.fontSize = `${newFontSize}px`
+    }
+
+    window.addEventListener('load', resize)
+    window.addEventListener('resize', resize)
+
+</script>
+
+</html>

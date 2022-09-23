@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .img-list {
+            height: 100%;
+            overflow: auto;
+        }
+
+        .img {
+            width: 1000px;
+            height: 800px;
+            border: 5px solid black;
+            margin: 0 auto 15px auto;
+
+            display: flex;
+            align-items: center;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="img-list">
+    <div class="img">
+        <img src="./img/placeholder.png" data-src="./img/1.jpg"/>
+    </div>
+    <div class="img">
+        <img src="./img/placeholder.png" data-src="./img/2.jpg"/>
+    </div>
+    <div class="img">
+        <img src="./img/placeholder.png" data-src="./img/3.jpg"/>
+    </div>
+</div>
+</body>
+<script>
+    const list = document.querySelector('.img-list')
+
+    const imgList = document.querySelectorAll('img')
+
+    let currentIndex = 0
+
+    list.addEventListener('scroll', ev => {
+        // if (list.scrollTop > img.offsetTop - innerHeight) {
+        //     // 取出data-src赋值给图片的src
+        //     img.src = img.getAttribute('data-src')
+        // }
+        lazyLoading()
+    })
+
+    function lazyLoading() {
+        if (currentIndex >= imgList.length) return
+
+        let img = imgList[currentIndex]
+        if (list.scrollTop > img.offsetTop - innerHeight) {
+            img.src = img.getAttribute('data-src')
+            currentIndex++
+        }
+    }
+
+    lazyLoading()
+</script>
+</html>

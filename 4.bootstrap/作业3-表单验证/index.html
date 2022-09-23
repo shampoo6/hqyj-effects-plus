@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+</head>
+<body>
+<div class="d-none alert alert-primary alert-dismissible fade show" role="alert">
+    提交成功
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<form class="p-5">
+    <div>
+        <label class="form-label">姓名</label>
+        <input class="form-control" name="name"/>
+        <div class="invalid-feedback">
+            请输入合法内容
+        </div>
+    </div>
+    <div>
+        <label class="form-label">年龄</label>
+        <input class="form-control" name="age" type="number"/>
+        <div class="invalid-feedback">
+            请输入合法内容
+        </div>
+    </div>
+    <div>
+        <label class="form-label">简介</label>
+        <textarea class="form-control" name="desc" maxlength="20"></textarea>
+        <div class="invalid-feedback">
+            请输入合法内容
+        </div>
+    </div>
+    <div>
+        <label class="form-label">班级</label>
+        <select name="clazz" class="form-select">
+            <option value="" disabled selected>请选择班级</option>
+            <option value="1班">1班</option>
+            <option value="2班">2班</option>
+            <option value="3班">3班</option>
+        </select>
+        <div class="invalid-feedback">
+            选择爱好的数量不能大于3
+        </div>
+    </div>
+    <div>
+        <label class="form-label">爱好</label>
+        <div>
+            <div class="form-check-inline">
+                <input id="sing" name="hobbies" type="checkbox" value="sing" class="form-check-input"/>
+                <label for="sing" class="form-check-label">唱歌</label>
+            </div>
+            <div class="form-check-inline">
+                <input id="dance" name="hobbies" type="checkbox" value="dance" class="form-check-input"/>
+                <label for="dance" class="form-check-label">跳舞</label>
+            </div>
+            <div class="form-check-inline">
+                <input id="paint" name="hobbies" type="checkbox" value="paint" class="form-check-input"/>
+                <label for="paint" class="form-check-label">绘画</label>
+            </div>
+            <div class="form-check-inline">
+                <input id="eatChicken" name="hobbies" type="checkbox" value="eatChicken" class="form-check-input"/>
+                <label for="eatChicken" class="form-check-label">吃鸡</label>
+            </div>
+        </div>
+        <div class="hobbies-feedback invalid-feedback">
+            选择爱好的数量不能大于3
+        </div>
+    </div>
+    <div>
+        <label class="form-label">是否入党</label>
+        <div>
+            <div class="form-check-inline">
+                <input id="yes" name="hobbies" type="radio" value="yes" class="form-check-input"/>
+                <label for="yes" class="form-check-label">是</label>
+            </div>
+            <div class="form-check-inline">
+                <input id="no" name="hobbies" type="radio" value="no" class="form-check-input" checked/>
+                <label for="no" class="form-check-label">否</label>
+            </div>
+        </div>
+        <div class="hobbies-feedback invalid-feedback">
+            选择爱好的数量不能大于3
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">提交</button>
+    </div>
+</form>
+</body>
+<script>
+    let btn = document.querySelector('.btn')
+    let form = document.querySelector('form')
+    let nameInp = document.querySelector('form input[name=name]')
+    let nameFeedback = document.querySelector('form input[name=name]~.invalid-feedback')
+    let ageInp = document.querySelector('form input[name=age]')
+    let ageFeedback = document.querySelector('form input[name=age]~.invalid-feedback')
+    let descTextarea = document.querySelector('form textarea[name=desc]')
+    let descFeedback = document.querySelector('form textarea[name=desc]~.invalid-feedback')
+    let clazzSelect = document.querySelector('form select[name=clazz]')
+    let clazzFeedback = document.querySelector('form select[name=clazz]~.invalid-feedback')
+    let hobbiesFeedback = document.querySelector('.hobbies-feedback')
+
+    btn.addEventListener('click', ev => {
+        ev.stopPropagation()
+        ev.preventDefault()
+
+        let fd = new FormData(form)
+
+        let checkNameResult = checkName(fd.get('name'))
+        let checkAgeResult = checkAge(fd.get('age'))
+        let checkDescResult = checkDesc(fd.get('desc'))
+        let checkClazzResult = checkClazz(fd.get('clazz'))
+        let checkHobbiesResult = checkHobbies(fd.getAll('hobbies'))
+
+        if (checkNameResult &&
+            checkAgeResult &&
+            checkDescResult &&
+            checkClazzResult &&
+            checkHobbiesResult
+        ) {
+            let alert = document.querySelector('.d-none')
+            alert.classList.remove('d-none')
+        }
+    })
+
+    function checkName(name) {
+        // 清空样式
+        nameInp.classList.remove('is-valid', 'is-invalid')
+
+        // 非空判断
+        if (name.trim() === '') {
+            nameFeedback.innerText = '请输入内容哦 亲'
+            nameInp.classList.add('is-invalid')
+            return false
+        }
+
+        // 共产党的判断
+        if (name.indexOf('共产党') !== -1) {
+            nameFeedback.innerText = '输入内容不能包含“共产党”哦 亲'
+            nameInp.classList.add('is-invalid')
+            return false
+        }
+
+        // 验证通过
+        nameInp.classList.add('is-valid')
+        return true
+    }
+
+    function checkAge(age) {
+        // 清空样式
+        ageInp.classList.remove('is-valid', 'is-invalid')
+
+        // 非空判断
+        if (age.trim() === '') {
+            ageFeedback.innerText = '请输入内容哦 亲'
+            ageInp.classList.add('is-invalid')
+            return false
+        }
+
+        // 0~200
+        if (Number(age) < 0 || Number(age) > 200) {
+            ageFeedback.innerText = '请输入 0~200 的年龄'
+            ageInp.classList.add('is-invalid')
+            return false
+        }
+
+        // 验证通过
+        ageInp.classList.add('is-valid')
+        return true
+    }
+
+    function checkDesc(desc) {
+        descTextarea.classList.remove('is-valid', 'is-invalid')
+        if (desc.trim().length > 0) {
+            // 若输入了内容才验证
+            if (desc.includes('张三') || desc.includes('奇迹')) {
+                descFeedback.innerText = '请不要输入 张三 或 奇迹'
+                descTextarea.classList.add('is-invalid')
+                return false
+            }
+        }
+
+        descTextarea.classList.add('is-valid')
+        return true
+    }
+
+    function checkClazz(clazz) {
+
+        clazzSelect.classList.remove('is-valid', 'is-invalid')
+
+        // 非空判断
+        if (clazz === null) {
+            clazzFeedback.innerText = '请选择班级'
+            clazzSelect.classList.add('is-invalid')
+            return false
+        }
+
+        clazzSelect.classList.add('is-valid')
+        return true
+    }
+
+    function checkHobbies(hobbies) {
+        hobbiesFeedback.style.display = 'none'
+
+        if (hobbies.length > 3) {
+            hobbiesFeedback.style.display = 'block'
+            return false
+        }
+
+        return true
+    }
+</script>
+</html>

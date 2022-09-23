@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .content {
+            height: 2000px;
+            position: relative;
+        }
+
+        .content img {
+            position: absolute;
+            bottom: 0;
+            /* 图片一定要设置高度，占位，否则当src属性不存在时，图片高度为0 */
+            height: 260px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <img data-src="./img/img.png" />
+        </div>
+    </div>
+</body>
+<script>
+    // 当 container.scrollTop > img.offsetTop - innerHeight 时，应该加载图片
+
+
+    let img = document.querySelector('img')
+    let container = document.querySelector('.container')
+
+    // 给容器绑定滚动事件
+    container.addEventListener('scroll', ev => {
+        console.log('scroll')
+        // container.scrollTop
+        // 当滚动高度足够大，即将显示图片时
+        if (container.scrollTop > img.offsetTop - innerHeight) {
+            // 取出data-src赋值给图片的src
+            img.src = img.getAttribute('data-src')
+        }
+    })
+
+</script>
+
+</html>

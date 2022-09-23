@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react 需要引入 react 核心库 和 react-dom 库 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+
+    <!-- 为了更方便书写 react 通常会使用 jsx 语法，为了支持该语法 需要引入 babel -->
+    <script src="../js/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script type="text/babel">
+    // 文档：https://zh-hans.reactjs.org/docs/hooks-effect.html
+    // 参考：https://tsh.io/blog/react-component-lifecycle-methods-vs-hooks/
+
+    // 知识点
+    // useEffect
+    // useEffect 不同参数代表的不同含义
+    // 使用useEffect监视状态的变化
+
+
+    let timer
+
+    function Clock() {
+        const [date, setDate] = React.useState(new Date())
+        const [count, setCount] = React.useState(0)
+
+        // 第一个参数：钩子函数，将在不同时机被触发，具体什么时候触发，要看第二个参数传入的什么
+        // 第二个参数：
+        // 若传入空数组，那么钩子函数就相当于 componentDidMount
+        // 钩子函数的返回值就相当于 componentWillUnmount
+        // React.useEffect(() => {
+        //     console.log('此处写的任何内容相当于class组件componentDidMount中写的内容')
+
+        //     return () => {
+        //         console.log('useEffect 的返回的回调函数，相当于class组件的componentWillUnmount')
+        //     }
+        // }, [])
+
+        // 第二个参数：
+        // 若传入一个可变依赖，那么当参数发生变化时，就会触发第一个参数中的回调
+        // 第一个参数中回调函数的返回值 将在下次调用前被调用
+
+
+        // React.useEffect(() => {
+        //     console.log('更新页面后的回调，相当于class组件的 componentDidUpdate')
+        //     return () => {
+        //         console.log('下一次更新前执行的回调，相当于class组件的 getDerivedStateFromProps')
+        //     }
+        // }, [date])
+
+
+        // 可以利用 useEffect 的特性创建指定属性的监视器
+        React.useEffect(()=>{
+            console.log('count 更新完成')
+            console.log(count) // 更新前 count 的值
+            return ()=>{
+                console.log('count 更新前')
+                console.log(count) // 更新后 count 的值
+            }
+        }, [count])
+
+
+        return (
+            <div>
+                {date.toLocaleString()}<br />
+                {count}<br />
+                <button onClick={() => { setDate(new Date()) }}>更新时间</button>
+                <button onClick={() => { setCount(_count => _count + 1) }}>更新Count</button>
+            </div>
+        )
+    }
+
+    // 声明渲染函数
+    ReactDOM.render(
+        (
+            <div>
+                <Clock />
+            </div>
+        ),
+        document.querySelector('#root')
+    )
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- 参考：https://getbootstrap.com/docs/5.0/forms/form-control/ -->
+    <!-- 基本用法 -->
+    <form>
+        <label for="name-input" class="form-label">姓名：</label>
+        <input id="name-input" name="name" class="form-control" />
+        <label for="intro" class="form-label">简介</label>
+        <textarea rows="3" id="intro" class="form-control"></textarea>
+
+        <!-- 修改大小 -->
+        <input class="form-control" />
+        <input class="form-control form-control-sm" />
+        <input class="form-control form-control-lg" />
+    </form>
+
+    <div class="mb-3 row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+        </div>
+    </div>
+
+    <!-- 文件上传 -->
+    <div>
+        <input class="form-control" type="file"/>
+        <input class="form-control form-control-sm" type="file"/>
+        <input class="form-control form-control-lg" type="file"/>
+        <input class="form-control" type="file" multiple/>
+        <input class="form-control" type="file" disabled/>
+    </div>
+</body>
+
+</html>

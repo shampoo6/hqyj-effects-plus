@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 使用bootstrap的容器进行响应式布局的话，需要在head标签中加入此meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+</head>
+
+<body>
+    <!-- 参考：https://getbootstrap.com/docs/5.0/utilities/display/ -->
+    
+    <!-- 显示元素的语法：
+        d-{value}: 例如：d-inline-block 设置元素display: inline-block
+        d-{breakpoint}-{value}: 例如: d-sm-flex 在屏幕宽度为sm时设置display:flex
+    -->
+    <div class="container d-none">
+        container
+    </div>
+    <div class="container-sm d-sm-block d-md-none">
+        container-sm
+    </div>
+    <div class="container-md d-none d-md-block d-lg-none">
+        container-md
+    </div>
+    <div class="container-lg d-none d-lg-block d-xl-none">
+        container-lg
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            /* width: 300px; */
+            width: 18.75rem;
+            height: 18.75rem;
+            background-color: red;
+            color: white;
+        }
+
+        .box2 {
+            /* width: 100px; */
+            width: 6.25rem;
+            height: 6.25rem;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box2">
+            我爱中国
+        </div>
+    </div>
+</body>
+<script>
+    // 使用rem作为单位进行自适应缩放时，需要确立参考系
+    // 此处，我们以iphone5的屏幕为例，标准宽度为320px，字体大小为16px
+
+    // 比例公式：320 / 16 = 新的屏幕宽度 / 新的屏幕字体大小
+
+    // 绑定窗口的resize事件
+    window.addEventListener('resize', () => {
+        console.log('resize')
+        console.log(window.innerWidth)
+        resize()
+    })
+
+    window.addEventListener('load', () => {
+        console.log('load')
+        resize()
+    })
+
+    function resize() {
+        // 获取新的分辨率下，根节点字体的大小
+        let newFontSize = window.innerWidth / (320 / 16)
+        document.querySelector('html').style.fontSize = newFontSize + 'px'
+    }
+
+    // 元素自适应大小方法：
+    // 先定义在标准屏幕分辨率下的大小
+    // 将此大小转换为 rem 单位
+    // 元素尺寸 / 标准根节点字体大小 = ?rem
+</script>
+
+</html>

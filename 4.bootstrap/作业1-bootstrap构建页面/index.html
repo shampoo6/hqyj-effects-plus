@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+</head>
+<body>
+    <!-- 屏幕需要多少个状态就创建多少布局容器，该作业有4个状态，所以创建四个布局容器 -->
+    <div class="container-lg d-none d-lg-block">
+        <div class="row gx-3 gy-3">
+            <div class="col-4 bg-primary" style="height:390px">1</div>
+            <div class="col-4 bg-secondary" style="height:390px">2</div>
+            <div class="col-4 bg-warning" style="height:390px">3</div>
+            <div class="col-4 bg-primary" style="height:390px">1</div>
+            <div class="col-4 bg-secondary" style="height:390px">2</div>
+            <div class="col-4 bg-warning" style="height:390px">3</div>
+        </div>
+    </div>
+    <div class="container-md d-none d-md-block d-lg-none">
+        <div class="row gx-3 gy-3">
+            <div class="col-6 bg-danger" style="height: 450px">1</div>
+            <div class="col-6 bg-secondary" style="height: 450px">2</div>
+            <div class="col-6 bg-danger" style="height: 450px">1</div>
+            <div class="col-6 bg-secondary" style="height: 450px">2</div>
+        </div>
+    </div>
+    <div class="container-sm d-none d-sm-block d-md-none">
+        <div class="row gx-3 gy-3">
+            <div class="col-6 bg-success" style="height:300px;">1</div>
+            <div class="col-6 bg-info" style="height:300px;">2</div>
+            <div class="col-6 bg-success" style="height:300px;">1</div>
+            <div class="col-6 bg-info" style="height:300px;">2</div>
+        </div>
+    </div>
+    <div class="container-xs d-xs-block d-sm-none">
+        <div class="row">
+            <div class="col bg-info" style="height: 600px;">1</div>
+        </div>
+    </div>
+</body>
+</html>

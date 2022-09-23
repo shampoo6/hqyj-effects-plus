@@ -1,0 +1,194 @@
+<!-- 
+    // 参考：https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation
+    // 约束校验api：https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation#%E7%BA%A6%E6%9D%9F%E6%A0%A1%E9%AA%8C%E7%9A%84_api
+    知识点
+    什么是表单验证
+    应用场景
+    学会使用html自带的表单验证
+    input 的验证属性
+        required
+        pattern
+        minlength maxlength
+        min max
+        type
+    novalidate 屏蔽html自带的验证报告
+    input 的 validity 属性
+        validity.valueMissing
+        validity.patternMismatch
+        validity.rangeOverflow
+        validity.rangeUnderflow
+        validity.tooLong
+        validity.tooShort
+        validity.valid
+    自定义提示信息
+        input.setCustomValidity
+    form 或 input 的 checkValidity
+    显示验证报告
+        form.reportValidity()
+    表单验证总结步骤
+        1. 给表单添加 novalidate 屏蔽自动验证报告
+        2. 对每个元素的 validity 属性进行验证
+        3. 根据每个元素的验证结果设置自定义异常 setCustomValidity
+        4. 提交验证报告
+        5. 根据验证结果执行后续网络操作
+-->
+
+<!-- 什么是表单验证
+    通常来说一个用户填写的表单数据都需要进行一个验证，因为用户的输入是不可信的，所以说在表单输入的时候需要对用户的输入做验证
+-->
+
+<!-- 应用场景
+    用户产生输入的时候
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+</head>
+
+<body class="d-flex justify-content-center">
+    <!-- novalidate 屏蔽默认的表单提交时的验证报告
+        屏蔽掉自动的验证报告的目的 是为了我们自己好去控制验证报告
+    -->
+    <form class="card p-3" style="width: 500px;" onsubmit="return false" novalidate>
+        <div class="vstack gap-3">
+            <div class="row">
+                <label class="col-3 col-form-label">姓名</label>
+                <div class="col">
+                    <!-- required 必填 -->
+                    <!-- <input name="name" required type="text" class="form-control"> -->
+                    <!-- pattern 正则表达式 -->
+                    <!-- <input name="name" pattern="[\s\S]*张三[\s\S]*" type="text" class="form-control"> -->
+                    <!-- minlength 最小长度 maxlength 最大长度 -->
+                    <!-- <input name="name" minlength="2" maxlength="10" type="text" class="form-control"> -->
+                    <!-- min 最小值 max 最大值 -->
+                    <input name="name" min="0" max="200" type="number" class="form-control">
+                    <!-- type 类型验证 -->
+                    <!-- <input type="email" class="form-control"> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col">
+                    <button class="btn btn-primary w-100">提交</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- 1. 添加 novalidate -->
+    <form class="form2 card p-3" style="width: 500px;" onsubmit="return false" novalidate>
+        <div class="vstack gap-3">
+            <div class="row">
+                <label class="col-3 col-form-label">姓名</label>
+                <div class="col">
+                    <input required minlength="2" maxlength="10" name="name" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-3 col-form-label">年龄</label>
+                <div class="col">
+                    <input required min="0" max="150" name="age" type="number" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col">
+                    <button class="btn2 btn btn-primary w-100">提交</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script>
+    let btn = document.querySelector('button')
+    let form = document.querySelector('form')
+    let nameInp = document.querySelector('input[name=name]')
+
+    let form2 = document.querySelector('.form2')
+    let btn2 = document.querySelector('.btn2')
+    let nameInp2 = document.querySelector('.form2 input[name=name]')
+    let ageInp = document.querySelector('.form2 input[name=age]')
+
+    btn.addEventListener('click', () => {
+        // 可以在此处通过代码验证用户的输入
+
+        // 可以通过输入框的 validity 属性 来判断用户是否输入正确
+
+        // validity.valueMissing -> required 用户没填数据时为 true
+        // validity.patternMismatch -> pattern 用户输入不满足正则 true
+        // validity.rangeOverflow -> max 用户输入超过最大值 true
+        // validity.rangeUnderflow -> min 用户输入小于最小值 true
+        // validity.tooLong -> maxlength 用户输入超出长度 不会触发 true
+        // validity.tooShort -> minlength 用户输入小于了指定长度 true
+        // validity.valid -> 输入没有问题 验证通过 true
+
+        // console.log(nameInp.validity);
+
+        // if(nameInp.validity.tooShort) {
+        //     console.log('姓名长度不够');
+        // }
+
+        if (nameInp.validity.rangeOverflow) {
+            // 手动设置错误提示
+            nameInp.setCustomValidity('年龄不能大于200')
+        } else if (nameInp.validity.rangeUnderflow) {
+            nameInp.setCustomValidity('年龄不能小于0')
+        } else {
+            console.log(nameInp.validity);
+            // 若验证没有问题时应当设置为 空字符串
+            nameInp.setCustomValidity('')
+        }
+
+        // checkValidity 检测是否表单输入有效
+        // 若返回true 代表输入有效 否则为false
+
+        if (!form.checkValidity()) {
+            // 显示验证报告
+            form.reportValidity()
+        } else {
+            // 若表单没有问题 输入都有效 则可以执行后续的代码
+            // 后续代码写在此处 例如 发送网络请求
+            console.log('验证通过');
+        }
+    })
+
+    // 总结表单验证
+    btn2.addEventListener('click', () => {
+        // 2. 验证所有表单项
+        if (nameInp2.validity.valueMissing) {
+            // 3. 设置错误信息
+            nameInp2.setCustomValidity('请输入姓名')
+        } else if (nameInp2.validity.tooShort) {
+            nameInp2.setCustomValidity('请输入至少2个字的姓名')
+        } else {
+            nameInp2.setCustomValidity('')
+        }
+
+        if (ageInp.validity.valueMissing) {
+            ageInp.setCustomValidity('请输入年龄')
+        } else if (ageInp.validity.rangeOverflow) {
+            ageInp.setCustomValidity('请输入不超过150的年龄')
+        } else if (ageInp.validity.rangeUnderflow) {
+            ageInp.setCustomValidity('请输入不低于0的年龄')
+        } else {
+            ageInp.setCustomValidity('')
+        }
+
+        if (!form2.checkValidity()) {
+            // 4. 发起验证报告
+            form2.reportValidity()
+        } else {
+            // 5. 验证通过 执行后续逻辑
+            console.log('验证通过');
+        }
+    })
+</script>
+
+</html>

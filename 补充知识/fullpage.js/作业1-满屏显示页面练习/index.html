@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../demo/css/fullpage.min.css" />
+    <link rel="stylesheet" href="./css/iconfont.css" />
+    <link rel="stylesheet" href="./css/animate.min.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+</head>
+
+<body>
+    <div class="nav">
+        <!-- logo -->
+        <img class="logo" src="./img/logo.svg" />
+        <!-- 按钮 -->
+        <div class="btns">
+            <div class="btn active">
+                首页
+                <!-- 用于缩放的背景 -->
+                <div class="active"></div>
+            </div>
+            <div class="btn">关于<div></div>
+            </div>
+            <div class="btn">服务<div></div>
+            </div>
+        </div>
+        <!-- 联系方式 -->
+        <div class="iconfont phone">
+            &#xe84f; 400-6650-361
+        </div>
+    </div>
+
+    <!-- fullpage 根节点 -->
+    <div class="fp-root">
+        <div class="section">
+            <div class="slide slide1">
+                <div class="slide-content">
+                    <div><i>SUCCESS</i></div>
+                    <div>
+                        <i>让我们为您的<span>成功</span>指引道路</i>
+                    </div>
+                    <div>Let Us Show You the Way to Success</div>
+                </div>
+            </div>
+            <div class="slide slide2">
+                <div class="slide-content">
+                    <div><i>SUCCESS</i></div>
+                    <div>
+                        <i>让我们为您的<span>成功</span>指引道路</i>
+                    </div>
+                    <div>Let Us Show You the Way to Success</div>
+                </div>
+            </div>
+            <div class="slide slide3">
+                <div class="slide-content">
+                    <div><i>SUCCESS</i></div>
+                    <div>
+                        <i>让我们为您的<span>成功</span>指引道路</i>
+                    </div>
+                    <div>Let Us Show You the Way to Success</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">section2</div>
+        <div class="section">section3</div>
+    </div>
+
+</body>
+<script src="../demo/js/fullpage.min.js"></script>
+<script>
+
+    let btns = document.querySelectorAll('.btn')
+
+    // 声明动画的 class 变量
+    let bounceIn = 'animate__bounceIn animate__animated'
+    let bounceInUp = 'animate__bounceInUp animate__delay-1s animate__animated'
+    let fadeIn = 'animate__fadeIn animate__delay-2s animate__animated'
+
+    // slides 内容元素
+    let slideContent = undefined
+    // 声明当前激活的slide的索引
+    let curerntSlideIndex = 0
+
+    // 初始化fullpage
+    let anchors = ['s1', 's2', 's3']
+
+    new fullpage('.fp-root', {
+        anchors: anchors,
+        sectionsColor: ['#f00', '#0f0', '#00f'],
+        slidesNavigation: true,
+        afterRender: () => {
+            slideContent = document.querySelectorAll('.slide-content')
+            let slide = slideContent[curerntSlideIndex]
+            slide.children[0].className = bounceIn
+            slide.children[1].className = bounceInUp
+            slide.children[2].className = fadeIn
+        },
+        afterLoad: function (from, to, direction) {
+            console.log(from)
+            console.log(to)
+            console.log(direction)
+
+
+            // 去掉 from 的索引下的按钮上的 active
+            let btn = btns[from.index]
+            btn.classList.remove('active')
+            btn.children[0].classList.remove('active')
+
+            // 给 to 的索引下的按钮添加 active
+            btn = btns[to.index]
+            btn.classList.add('active')
+            btn.children[0].classList.add('active')
+        },
+        afterSlideLoad: function (section, from, to) {
+            let slide = slideContent[to.index]
+            slide.style.display = 'flex'
+            // 获取进入的slide元素
+            slide.children[0].className = bounceIn
+            slide.children[1].className = bounceInUp
+            slide.children[2].className = fadeIn
+
+            curerntSlideIndex = to.index
+        },
+        onSlideLeave: function (section, from) {
+            // 获取离开的slide元素
+            let slide = slideContent[from.index]
+            slide.children[0].className = ''
+            slide.children[1].className = ''
+            slide.children[2].className = ''
+            slide.style.display = 'none'
+        }
+    })
+
+    // 记录当前正被激活的索引
+    let currentIndex = 0
+
+    for (let i = 0; i < btns.length; i++) {
+        let btn = btns[i]
+        btn.addEventListener('click', () => {
+            // 跳转fullpage
+            location.href = '#' + anchors[i]
+
+            if (i === currentIndex) return;
+            // 去掉上一个按钮样式
+            btns[currentIndex].classList.remove('active')
+            btns[currentIndex].children[0].classList.remove('active')
+            // 给新按钮添加激活样式
+            btn.classList.add('active')
+            btn.children[0].classList.add('active')
+
+            currentIndex = i
+        })
+    }
+</script>
+
+</html>

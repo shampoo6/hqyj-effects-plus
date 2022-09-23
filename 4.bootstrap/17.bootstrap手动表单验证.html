@@ -1,0 +1,130 @@
+<!-- 
+    知识点
+    在不使用 html 自带的表单验证的情况下
+    在自行验证后 可以通过添加 is-valid is-invalid 手动指定输入框的验证结果
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        #form {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 参考：https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation -->
+    <!-- 参考：https://getbootstrap.com/docs/5.0/forms/validation/ -->
+
+    <div class="container">
+        <!-- 在form上 增加 novalidate 属性，将使浏览器停止表单验证 -->
+        <form id="form" onsubmit="return false" class="row p-3 mt-3 g-3 border rounded" novalidate>
+            <!-- 第一行 -->
+            <div class="col-4 form-item-firstname">
+                <label class="form-label">First name</label>
+                <!-- 在表单元素后加上 required 属性，表示 该表单项是必填项 -->
+                <!-- required 属性可以让浏览器自动检测该表单元素是否填写，这是浏览器的默认行为 -->
+                <input name="firstName" class="form-control" placeholder="please input first name" required
+                    minlength="2" maxlength="10" />
+                <!-- 自定义表单验证 -->
+
+                <!-- feedback元素，需要和input位兄弟节点关系 -->
+                <!-- valid-feedback 将在验证通过时显示 -->
+                <div class="valid-feedback">
+                    ok
+                </div>
+                <!-- invalid-feedback 将在验证失败时显示 -->
+                <div class="invalid-feedback">
+                    please input valid value
+                </div>
+            </div>
+            <div class="col-4">
+                <label class="form-label">Last name</label>
+                <input name="lastName" class="form-control" placeholder="please input last name" />
+            </div>
+            <div class="col-4">
+                <label class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text">@</span>
+                    <input name="userName" class="form-control" placeholder="please input username" />
+                </div>
+            </div>
+            <!-- 第二行 -->
+            <div class="col-6">
+                <label class="form-label">City</label>
+                <input name="city" class="form-control" placeholder="please input city" />
+            </div>
+            <div class="col-3">
+                <label class="form-label">State</label>
+                <select class="form-select">
+                    <option value="">Choose...</option>
+                    <option value="CQ">ChongQing</option>
+                    <option value="BJ">BeiJing</option>
+                    <option value="SH">ShangHai</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label class="form-label">Zip</label>
+                <input name="zip" class="form-control" placeholder="please input zip code" />
+            </div>
+            <!-- 第三行 -->
+            <div class="col-12">
+                <div class="form-check">
+                    <input name="protocol" type="checkbox" class="form-check-input" />
+                    <label class="form-check-label">Agree to terms and conditions</label>
+                </div>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Submit form" />
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    // 参考：https://developer.mozilla.org/zh-CN/docs/Learn/Forms/Form_validation
+    // 参考：https://getbootstrap.com/docs/5.0/forms/validation/
+    // 约束验证：https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Constraint_validation
+
+    const btn = document.querySelector('#form input[type=submit]')
+    // 此处作为例子，只验证了 firstName
+    // 此处 firstName 有两个约束条件
+    // 一：必填
+    // 二：长度必须在 2~10 之间
+    const form = document.querySelector('form')
+    const firstName = document.querySelector('form input[name=firstName]')
+    // 错误提示
+    const errorTip = document.querySelector('input[name=firstName]~.invalid-feedback')
+    btn.addEventListener('click', ev => {
+        ev.stopPropagation()
+        ev.preventDefault()
+
+        let valid = true
+
+        // 判断是否没填
+        if(firstName.validity.valueMissing) {
+            errorTip.innerHTML = '请填写 firstName'
+            valid = false
+        } else if (firstName.validity.tooShort){
+            errorTip.innerHTML = '请填写 2~10 位的 firstName'
+            valid = false
+        }
+
+        // 手动验证的原理，就是当验证到表单元素填写正确时，手动给该元素添加 class is-valid，否则添加 class is-invalid
+
+        // 移出 用于验证的 class is-valid 和 is-invalid
+        firstName.classList.remove('is-valid', 'is-invalid')
+        // 根据验证结果 添加对应的样式
+        // 若验证通过，添加 is-valid，否则添加 is-invalid
+        firstName.classList.add(valid? 'is-valid': 'is-invalid')
+    })
+</script>
+
+</html>

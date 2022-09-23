@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- size: https://getbootstrap.com/docs/5.2/utilities/sizing/ -->
+    <h1>元素大小</h1>
+    <div class="text-bg-primary w-25">25%</div>
+    <div class="text-bg-secondary w-50">50%</div>
+    <div class="text-bg-success w-75">75%</div>
+    <div class="text-bg-warning w-100">100%</div>
+    <div class="text-bg-danger w-auto">auto</div>
+    <div class="container d-flex" style="height:400px;">
+        <div class="text-bg-primary h-25">25%</div>
+        <div class="text-bg-secondary h-50">50%</div>
+        <div class="text-bg-success h-75">75%</div>
+        <div class="text-bg-warning h-100">100%</div>
+        <div class="text-bg-danger h-auto">auto</div>
+    </div>
+    <!-- vh vw 是相对于视口的宽高 -->
+    <!-- <div class="vh-100 vw-100 bg-danger"></div> -->
+
+
+    <!-- space: https://getbootstrap.com/docs/5.2/utilities/spacing/ -->
+    <h1>内边距外边距</h1>
+    <!-- 内边距 使用 p- 开头 -->
+
+    <!-- p-{value}: 设置四周的内边距 -->
+    <div class="box bg-warning p-1"></div>
+    <!-- p{dir}-{value}: 设置指定的一边的方向
+        dir 取值为 t b s e 分别代表 上下左右
+    -->
+    <div class="box bg-warning pt-3"></div>
+    <div class="box bg-warning pb-3"></div>
+    <div class="box bg-warning ps-3"></div>
+    <div class="box bg-warning pe-3"></div>
+    <!-- p{axis}-{value}: 设置水平或竖直轴上的内边距
+        axis: 取值为 x y 分别代表 水平和竖直
+    -->
+    <div class="box bg-warning px-3"></div>
+    <div class="box bg-warning py-3"></div>
+
+    <!-- 外边距的写法和内边距一摸一样 -->
+    <div class="box bg-warning m-2"></div>
+    <div class="box bg-warning mt-2"></div>
+    <div class="box bg-warning mb-2"></div>
+    <div class="box bg-warning ms-2"></div>
+    <div class="box bg-warning me-2"></div>
+    <div class="box bg-warning mx-2"></div>
+    <div class="box bg-warning my-2"></div>
+
+
+    <!-- stacks: https://getbootstrap.com/docs/5.2/helpers/stacks/ -->
+    <h1>元素间的间距</h1>
+
+    <!-- vstack 竖直方向产生间距
+        gap 间距的大小
+    -->
+    <div class="vstack gap-1">
+        <div class="box bg-success"></div>
+        <div class="box bg-success"></div>
+        <div class="box bg-success"></div>
+    </div>
+
+    <!-- hstack 水平方向产生间距 -->
+    <div class="hstack gap-2">
+        <div class="box bg-success"></div>
+        <div class="box bg-success"></div>
+        <div class="box bg-success"></div>
+    </div>
+
+</body>
+
+</html>

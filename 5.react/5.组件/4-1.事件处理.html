@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react 需要引入 react 核心库 和 react-dom 库 -->
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+
+    <!-- 为了更方便书写 react 通常会使用 jsx 语法，为了支持该语法 需要引入 babel -->
+    <script src="../js/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script type="text/babel">
+    // 知识点
+    // 绑定事件的基本
+    //      1. on+事件名称
+    //      2. 使用花括号插值一个事件处理程序
+    //      3. 获取事件对象
+    //      4. 给事件处理程序传参
+
+    function MyButton() {
+        // 3. 获取事件对象
+        // 可以在事件处理程序中声明参数 ev
+        // 此处的 ev 就是触发该事件时的事件对象
+        function clickHandler(ev, id) {
+            console.log('btn click');
+            console.log(ev);
+            console.log(id);
+        }
+
+        // 1. on+事件名称
+        // 2. 使用花括号插值一个事件处理程序
+        // return <button onClick={clickHandler}>my button</button>
+
+        // 4. 给事件处理程序传参
+        // 绑定事件处理程序的位置使用一个箭头函数并调用事件处理函数
+        // 箭头函数可以接收事件对象ev
+        // 此时事件处理函数接收什么样的参数都可以
+        return <button onClick={ev => { clickHandler(ev, 15) }}>my button</button>
+    }
+
+    class MyButton2 extends React.Component {
+
+        clickHandler(ev, id) {
+            console.log('btn click');
+            console.log(ev);
+            console.log(id);
+        }
+
+        render() {
+            // return <button onClick={this.clickHandler}>my button2</button>
+            return <button onClick={ev => { this.clickHandler(ev, 666) }}>my button2</button>
+        }
+    }
+
+    // 声明渲染函数
+    ReactDOM.render(
+        (
+            <div>
+                <MyButton></MyButton>
+                <MyButton2></MyButton2>
+            </div>
+        ),
+        document.querySelector('#root')
+    )
+</script>
+
+</html>

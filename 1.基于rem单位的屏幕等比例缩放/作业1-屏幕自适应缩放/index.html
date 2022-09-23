@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            font-size: 0.875rem;
+            height: 3.5rem;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            box-shadow: 0 0.3125rem 0.3125rem #0000001f;
+        }
+
+        .goods-list {
+            padding: 0.375rem;
+        }
+
+        .item {
+            /* background-color: red; */
+
+            height: 7.5rem;
+
+            display: flex;
+
+            margin-bottom: 0.375rem;
+        }
+
+        .item>div:nth-child(1) {
+            width: 6.25rem;
+            height: 100%;
+            background-color: blue;
+        }
+
+        .item>div:nth-child(2) {
+            width: calc(100% - 7.5rem);
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .title {
+            font-weight: bolder;
+            font-size: 0.875rem;
+        }
+
+        .price {
+            font-size: 0.8125rem;
+            font-weight: bolder;
+        }
+
+        .comment {
+            font-size: 0.75rem;
+            color: rgb(129, 129, 129);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- iphone 5    320/16 -->
+    <!-- navbar -->
+    <div class="nav">
+        <div>店铺首页</div>
+        <div>全部商品</div>
+        <div>热销</div>
+        <div>上新</div>
+        <div>店铺动态</div>
+    </div>
+    <!-- 内容区域 -->
+    <div class="content">
+        <!-- 商品列表 -->
+        <div class="goods-list">
+            <!-- 商品项 -->
+            <div class="item">
+                <!-- 图片 -->
+                <div></div>
+                <!-- 文本信息 -->
+                <div>
+                    <div class="title">iPhoneX大降价，原价9000元，现在4500元，iPhoneX大降价</div>
+                    <div class="price">￥4500</div>
+                    <div class="comment">46451条评价 99%</div>
+                </div>
+            </div>
+            <div class="item">
+                <!-- 图片 -->
+                <div></div>
+                <!-- 文本信息 -->
+                <div>
+                    <div class="title">iPhoneX大降价，原价9000元，现在4500元，iPhoneX大降价</div>
+                    <div class="price">￥4500</div>
+                    <div class="comment">46451条评价 99%</div>
+                </div>
+            </div>
+            <div class="item">
+                <!-- 图片 -->
+                <div></div>
+                <!-- 文本信息 -->
+                <div>
+                    <div class="title">iPhoneX大降价，原价9000元，现在4500元，iPhoneX大降价</div>
+                    <div class="price">￥4500</div>
+                    <div class="comment">46451条评价 99%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    let html = document.querySelector('html')
+
+    window.addEventListener('resize', () => {
+        resize()
+    })
+
+    window.addEventListener('load', () => {
+        resize()
+    })
+
+    function resize() {
+        let w = window.innerWidth
+        let fontSize = w / (320 / 16)
+        html.style.fontSize = fontSize + 'px'
+    }
+
+</script>
+
+</html>

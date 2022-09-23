@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-demo/css/bootstrap.min.css">
+    <style>
+        .col-12 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body class="h-100 bg-light">
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
+        <form class="row d-flex justify-content-center">
+            <div class="col-12 mb-4">
+                <img width="72" src="./bootstrap-logo.svg" />
+            </div>
+            <div class="col-12 mb-2">
+                <h2>Please sign in</h2>
+            </div>
+            <div class="col-12">
+                <div class="w-100 form-floating">
+                    <input name="email" type="email" class="form-control" id="emailInput"
+                        placeholder="please input email address">
+                    <label for="emailInput">Email address</label>
+                    <div class="email-feedback invalid-feedback">
+                        please input email address
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-2">
+                <div class="w-100 form-floating">
+                    <input name="pwd" type="password" class="form-control" id="pwdInput"
+                        placeholder="please input password">
+                    <label for="pwdInput">Password</label>
+                    <div class="pwd-feedback invalid-feedback">
+                        please input password
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-2">
+                <div class="form-check">
+                    <input id="remember" name="remember" type="checkbox" class="form-check-input" />
+                    <label for="remember" class="form-check-label">Remember me</label>
+                </div>
+            </div>
+            <div class="col-12 mb-5">
+                <button class="w-100 btn btn-primary">Sign in</button>
+            </div>
+        </form>
+        <div class="text-secondary">
+            &copy; 2017-2021
+        </div>
+    </div>
+</body>
+
+<script>
+    const form = document.querySelector('form')
+    const submitBtn = document.querySelector('form .btn')
+    const emailFeedback = document.querySelector('.email-feedback')
+    const pwdFeedback = document.querySelector('.pwd-feedback')
+    const emailInput = document.querySelector('#emailInput')
+    const pwdInput = document.querySelector('#pwdInput')
+
+    const emailRegex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+
+    submitBtn.addEventListener('click', ev => {
+        ev.stopPropagation()
+        ev.preventDefault()
+
+        // 获取输入
+        let fd = new FormData(form)
+        let email = fd.get('email')
+        let pwd = fd.get('pwd')
+        let remember = fd.get('remember')
+
+        // 声明一个bool值用于储存验证结果
+        let emailResult = validEmail(email)
+        let pwdResult = validPwd(pwd)
+
+        console.log(emailResult)
+        console.log(pwdResult)
+        console.log(remember)
+
+        // 判断是否所有的验证都通过了
+        if (emailResult && pwdResult && remember) {
+            alert('登录成功')
+        }
+    })
+
+    // 验证邮箱
+    function validEmail(email) {
+        let result = true
+
+        // 非空检测
+        if (!email || email.trim() === '') {
+            // 修改提示语句
+            emailFeedback.innerHTML = '请输入电子邮箱'
+            // 添加提示用样式
+            setValidStyle(emailInput, false)
+            result = false
+        } else if (!checkEmail(email)) {
+            // 修改提示语句
+            emailFeedback.innerHTML = '请输入正确的邮箱地址'
+            // 添加提示用样式
+            setValidStyle(emailInput, false)
+            result = false
+        } else {
+            // 重置验证状态
+            setValidStyle(emailInput, true)
+        }
+
+        // 返回验证结果
+        return result
+    }
+
+    // 验证密码
+    function validPwd(pwd) {
+        let result = true
+
+        // 非空检测
+        if (!pwd || pwd.trim() === '') {
+            // 修改提示语句
+            pwdFeedback.innerHTML = '请输入密码'
+            // 添加提示用样式
+            setValidStyle(pwdInput, false)
+            result = false
+        } else if (!checkPwdLength(pwd)) {
+            // 修改提示语句
+            pwdFeedback.innerHTML = '请输入6~10位的密码'
+            // 添加提示用样式
+            setValidStyle(pwdInput, false)
+            result = false
+        } else {
+            // 重置验证状态
+            setValidStyle(pwdInput, true)
+        }
+
+        // 返回验证结果
+        return result
+    }
+
+    // 设置验证样式
+    function setValidStyle(input, valid) {
+        // 若验证通过
+        if (valid) {
+            input.classList.remove('is-invalid')
+            input.classList.add('is-valid')
+        } else {
+            input.classList.add('is-invalid')
+            input.classList.remove('is-valid')
+        }
+    }
+
+    // 检测密码长度是否复合要求
+    function checkPwdLength(pwd) {
+        return pwd.length >= 6 && pwd.length <= 10 // 要求密码在 6~10之间
+    }
+
+    // 检测email是否合法
+    function checkEmail(email) {
+        return emailRegex.test(email)
+    }
+</script>
+
+</html>

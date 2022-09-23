@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="js/babel.min.js"></script>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+<script type="text/babel">
+
+    // 知识点
+    // 什么是错误边界
+    //      react 的错误边界类似 js 的 catch
+    //      错误边界是一个 react 组件，其内部的子组件一旦发生异常就会触发错误边界
+    // 应用场景
+    //      需要对页面异常做出更友好的提示的时候，可以使用错误边界
+    // 如何使用？
+    //      1. 错误边界需要是一个 class 组件（函数组件不能充当错误边界）
+    //      2. 错误边界需要声明一个 hasError 状态
+    //      3. 错误边界需要实现生命周期钩子函数： static getDerivedStateFromError(error) 该函数返回要修改的状态，通常是{hasError: true} ； componentDidCatch(error, errorInfo) [该函数非必要]
+    //      4. 错误边界的渲染函数的内容，根据 hasError 状态进行调整
+    //      5. 使用错误边界的时候，在错误边界的标签体中嵌入其他子组件
+    //      6. 子组件生命周期任何阶段发生异常，都会被错误边界捕获到，从而显示错误的提示
+
+    class ErrorBoundary extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                hasError: false
+            }
+        }
+
+        static getDerivedStateFromError(error) {
+            console.warn('getDerivedStateFromError')
+            // 此处 更新 state 使下一次渲染能够显示降级后的 UI
+            return { hasError: true }
+        }
+
+        componentDidCatch(error, errorInfo) {
+            // 你同样可以将错误日志上报给服务器
+            // 在此处处理异常
+            console.warn('componentDidCatch')
+            console.log(error)
+            console.log(errorInfo)
+        }
+
+        render() {
+            return this.state.hasError ?
+                <div>Children has Error</div> :
+                this.props.children
+        }
+    }
+
+    // function Child() {
+    //     // 子组件中抛出任意未处理的异常 会被错误边界捕获
+    //     throw new Error('something wrong with child')
+
+    //     return (
+    //         <div>child</div>
+    //     )
+    // }
+
+    class Child extends React.Component {
+
+        constructor(props) {
+            super(props)
+
+            this.state = {
+                count: 0
+            }
+        }
+
+        componentDidMount() {
+            console.log('mount');
+            // abc.co()
+        }
+
+        clickHandler(){
+            abc.co()
+        }
+
+        componentDidUpdate(){
+            console.log('update');
+            abc.ok()
+        }
+
+        increase() {
+            this.setState(state=>({count: state.count + 1}))
+        }
+
+        render() {
+            return (
+                <div>
+                    hello child: {this.state.count} <br/>
+                    <button onClick={this.clickHandler.bind(this)}>click me</button>
+                    <button onClick={this.increase.bind(this)}>+++</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        // 使用错误边界包裹子组件
+        (
+            <ErrorBoundary>
+                <Child />
+            </ErrorBoundary>
+        )
+        ,
+        document.querySelector('#app')
+    )
+
+    // 总结：
+    // 1. 错误边界需要是一个 class 组件
+    // 2. 错误边界需要声明一个 hasError 状态
+    // 3. 错误边界需要实现生命周期钩子函数： static getDerivedStateFromError(error) 该函数返回要修改的状态，通常是{hasError: true} ； componentDidCatch(error, errorInfo) [该函数非必要]
+    // 4. 错误边界的渲染函数的内容，根据 hasError 状态进行调整
+    // 5. 使用错误边界的时候，在错误边界的标签体中嵌入其他子组件
+    // 6. 子组件生命周期任何阶段发生异常，都会被错误边界捕获到，从而显示错误的提示
+</script>
+
+</html>
